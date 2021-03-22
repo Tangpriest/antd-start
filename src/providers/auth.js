@@ -23,6 +23,10 @@ const fakeAuth = {
 function useProvideAuth() {
   const [user, setUser] = useState(null)
 
+  /**
+   * request server api
+   * @param {*} cb 
+   */
   const signin = cb => {
     return fakeAuth.signin(() => {
       setUser("user")

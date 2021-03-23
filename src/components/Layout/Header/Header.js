@@ -27,7 +27,8 @@ const styles = StyleSheet.create({
   header: {
     padding: 0,
     display: 'flex',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    backgroundColor: '#292b32'
   },
   logoImg: {
     width: 30,

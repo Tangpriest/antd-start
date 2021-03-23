@@ -4,6 +4,7 @@ import { useAuth } from '../../../providers/auth'
 import { StyleSheet, css } from 'aphrodite'
 import { Form, Input, Button, Tabs } from 'antd'
 import Footer from '../../../components/Layout/Footer'
+import UserApi from '../../../services/user'
 
 const { TabPane } = Tabs
 
@@ -12,11 +13,20 @@ export default function LoginPage() {
   const location = useLocation()
   const auth = useAuth()
 
-  const { from } = location.state || { from: { pathname: "/" } }
-
-  const onFinish = (values) => {
+  /**
+   * 如果是真实环境 可以改成请求api接口，根据接口返回判断后续操作
+   * @param {*} values 
+   */
+  const onFinish = async values => {
     console.log('Success:', values)
 
+
+    // const response = await UserApi.requestLogin({
+    //   userName: values.username,
+    //   password: values.password
+    // })
+
+    const { from } = location.state || { from: { pathname: "/" } }
     auth.signin(() => {
       history.replace(from)
     })
@@ -29,16 +39,12 @@ export default function LoginPage() {
 
   return (
     <div className={css(styles.loginPage)}>
-      <div style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center'
-      }}>
+      <div className={css(styles.formPannel)}>
         <div className={css(styles.logo)}>
           <img className={css(styles.logoImg)} src='http://preview.pro.ant.design/static/logo.f0355d39.svg' />
           <h1>Antd-Start</h1>
         </div>
-        <div className={css(styles.desc)}>初始化基于create-react-app eject,路由基于react-router-dom,完全自定义开发。</div>
+        <div className={css(styles.desc)}>初始化基于create-react-app eject,路由基于react-router-dom,自定义你的antd-design开发。</div>
         <div style={{
           width: 800,
           display: 'flex',
@@ -105,6 +111,11 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-evenly'
+  },
+  formPannel: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
   },
   logo: {
     display: 'flex'
